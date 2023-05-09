@@ -1,0 +1,30 @@
+/* 
+--oxford-blue: #0a1128ff;
+--penn-blue: #001f54ff;
+--indigo-dye: #034078ff;
+--cerulean: ;
+--white: #fefcfbff; 
+*/
+
+body {
+    background-color: red;
+}
+
+.stage-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    position: absolute;
+    top: 10vw;
+    left: 10vw;
+    width: 80vw;
+
+    background-color: green;
+    border: 2px solid blue;
+}
+
+.title {
+    font-family: "Comic Sans MS";
+    text-align: center;
+    grid-column: 1 / span 2;
+}
