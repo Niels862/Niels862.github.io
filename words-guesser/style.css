@@ -1,12 +1,5 @@
-/* 
---oxford-blue: #0a1128ff;
---penn-blue: #001f54ff;
---indigo-dye: #034078ff;
---cerulean: ;
---white: #fefcfbff; 
-*/
-
 body {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif   ;
     background-color: red;
 }
 
@@ -19,12 +12,22 @@ body {
     left: 10vw;
     width: 80vw;
 
-    background-color: green;
+    background-color: lime;
     border: 2px solid blue;
 }
 
-.title {
-    font-family: "Comic Sans MS";
-    text-align: center;
+.stage-container * {
     grid-column: 1 / span 2;
+}
+
+.left {
+    grid-column: 1 / span 1;
+}
+
+.right {
+    grid-column: 2 / span 1;
+}
+
+.title {
+    text-align: center;
 }
