@@ -19,7 +19,6 @@ body {
     left: 10vw;
     width: 80vw;
 
-    margin: 1rem;
     background-color: lime;
     border: 2px solid blue;
     transition: transform 500ms ease;
@@ -55,7 +54,7 @@ button, .word-display {
     display: block;
     width: calc(100% - 2rem);
     margin: 1rem;
-    font-size: 3rem;
+    font-size: 1.5rem;
     cursor: pointer;
     background-color: lightgoldenrodyellow;
 }
