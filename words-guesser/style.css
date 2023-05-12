@@ -1,9 +1,9 @@
 :root {
     --background: #33A1FD;
     --block-background: #FDCA40;
-    --button-background: #79acfd;
-    --button-background-pressed: #5295ff;
-    --button-background-disabled: #8bb7ff;
+    --button-background: #95beff;
+    --button-background-pressed: #4e92ff;
+    --button-background-disabled: #b9d4ff;
 }
 
 body {
@@ -49,7 +49,7 @@ h1 {
     font-size: 1.5rem;
 }
 
-button, .word-display {
+button, .checkbox-label {
     all: unset;
     padding: 0.5rem 0;
     border-radius: 0.5rem;
@@ -63,11 +63,11 @@ button, .word-display {
     background-color: var(--button-background);
 }
 
-.word-checkbox {
+.checkbox {
     display: none;
 }
 
-.word-checkbox:checked + .word-display, button:hover, button:focus {
+.checkbox:checked + .checkbox-label, button:hover, button:focus {
     background-color: var(--button-background-pressed);
 }
 
