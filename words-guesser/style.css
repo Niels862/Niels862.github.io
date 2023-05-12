@@ -3,18 +3,31 @@ body {
     background-color: red;
 }
 
+#page {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
 .stage-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
 
     position: absolute;
-    top: 10vw;
+    top: calc(10vw - 100vh);
     left: 10vw;
     width: 80vw;
 
     margin: 1rem;
     background-color: lime;
     border: 2px solid blue;
+    transition: transform 500ms ease;
+}
+
+.stage-container.shown {
+    transform: translate3d(0, 100vh, 0);
+    transition: transform 500ms ease;
 }
 
 .stage-container * {
@@ -34,7 +47,23 @@ h1 {
     font-size: 3rem;
 }
 
-button {
+button, .word-display {
+    all: unset;
+
+    border-radius: 0.5rem;
+    text-align: center;
+    display: block;
+    width: calc(100% - 2rem);
     margin: 1rem;
     font-size: 3rem;
+    cursor: pointer;
+    background-color: lightgoldenrodyellow;
+}
+
+.word-checkbox {
+    display: none;
+}
+
+.word-checkbox:checked + .word-display, button:hover, button:focus {
+    background-color: rebeccapurple;
 }
