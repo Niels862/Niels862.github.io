@@ -1,9 +1,8 @@
 class Game {
-    words = undefined;
     constructor() {
         fetch("words.json")
             .then(response => response.json())
-            .then(data => words = data)
+            .then(data => {})
             .catch(error => alert(`Error: ${error}`));
     }
 }
