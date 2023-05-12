@@ -9,19 +9,17 @@
     <title>Document</title>
 </head>
 <body>
-    <div id="page">
-        <div class="stage-container shown" id="index">
-            <h1>Word Guesser</h1>
-            <button class="redirector" data-redirect="prepare">Start</button>
-        </div>
-        <div class="stage-container" id="prepare">
-            <button class="redirector" data-redirect="active">Ready</button>
-        </div>
-        <div class="stage-container" id="active">
-            <div id="words-list">
-                <input type="checkbox" class="word-checkbox" id="word1">
-                <label for="word1" class="word-display">Word1</label>
-            </div>
+    <div class="stage-container shown" id="index">
+        <h1>Word Guesser</h1>
+        <button class="redirector" data-redirect="prepare">Start</button>
+    </div>
+    <div class="stage-container" id="prepare">
+        <button class="redirector" data-redirect="active">Ready</button>
+    </div>
+    <div class="stage-container" id="active">
+        <div id="words-list">
+            <input type="checkbox" class="word-checkbox" id="word1">
+            <label for="word1" class="word-display">Word1</label>
         </div>
     </div>
 </body>
