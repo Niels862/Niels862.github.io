@@ -1,12 +1,15 @@
 body {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif   ;
     background-color: red;
+    overflow: hidden;
 }
 
 #page {
     width: 100vw;
     height: 100vh;
-    overflow: hidden;
+    display: flex; /* Add this */
+    justify-content: center; /* Add this */
+    align-items: center; /* Add this */
     position: relative;
 }
 
@@ -16,10 +19,6 @@ body {
 
     position: absolute;
     top: calc(10vw - 100vh);
-    left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
     width: 80vw;
     overflow: hidden;
     background-color: lime;
