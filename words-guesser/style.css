@@ -3,6 +3,7 @@
     --block-background: #FDCA40;
     --button-background: #79acfd;
     --button-background-pressed: #5295ff;
+    --button-background-disabled: #8bb7ff;
 }
 
 body {
@@ -68,4 +69,8 @@ button, .word-display {
 
 .word-checkbox:checked + .word-display, button:hover, button:focus {
     background-color: var(--button-background-pressed);
+}
+
+button:disabled {
+    background-color: var(--button-background-disabled);
 }

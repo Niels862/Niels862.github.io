@@ -1,8 +1,14 @@
 class Game {
     constructor() {
+        let data;
         fetch("words.json")
             .then(response => response.json())
-            .then(data => {})
+            .then(json => {
+                data = json;
+                for (const elem of document.getElementsByClassName("redirector")) {
+                    elem.disabled = false;
+                }
+            })
             .catch(error => alert(`Error: ${error}`));
     }
 }
@@ -13,7 +19,7 @@ class Stage {
     }
 
     show() {
-        for (elem of document.getElementsByClassName("shown")) {
+        for (const elem of document.getElementsByClassName("shown")) {
             elem.classList.remove("shown");
         }
         this.container.classList.add("shown");
@@ -29,7 +35,7 @@ addEventListener("DOMContentLoaded", () => {
     
     const game = new Game();
 
-    for (elem of document.getElementsByClassName("redirector")) {
+    for (const elem of document.getElementsByClassName("redirector")) {
         elem.addEventListener("click", event => {
             stages[event.target.dataset.redirect].show();
         });
