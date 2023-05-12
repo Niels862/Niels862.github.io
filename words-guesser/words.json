@@ -151,7 +151,8 @@
                 "Vrijwilliger",
                 "Zwemleraar"
             ]
-        }, {
+        },
+        {
             "name": "Landen & Steden",
             "words": [
                 "Nederland",
@@ -223,7 +224,8 @@
                 "Stuttgart",
                 "Wenen"
             ]
-        }, {
+        },
+        {
             "name": "Bekende Mensen",
             "words": [
                 "Albert Einstein",
@@ -314,9 +316,11 @@
                 "Johnny Depp",
                 "Robert Downey Jr.",
                 "Emma Watson",
-                "Jennifer Lawrence"            ]
-        }, {
-            "name":"Bekende Mensen NL",
+                "Jennifer Lawrence"
+            ]
+        },
+        {
+            "name": "Bekende Mensen NL",
             "words": [
                 "Johan Cruijff",
                 "Vincent van Gogh",
@@ -414,7 +418,8 @@
                 "Chantal Janzen",
                 "Henk Westbroek"
             ]
-        }, {
+        },
+        {
             "name": "Karakters",
             "words": [
                 "Sherlock Holmes",
@@ -515,7 +520,8 @@
                 "Ellen Ripley",
                 "Lara Croft"
             ]
-        }, {
+        },
+        {
             "name": "Films & Series",
             "words": [
                 "The Shawshank Redemption",

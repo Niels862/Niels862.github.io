@@ -27,13 +27,11 @@
         <button class="redirector" data-redirect="options">Back</button>
     </div>
     <div class="stage-container" id="prepare">
-        <button class="redirector" data-redirect="active">Ready</button>
+        <button id="activate">Ready</button>
     </div>
     <div class="stage-container" id="active">
-        <div id="words-list">
-            <input type="checkbox" class="checkbox word-checkbox" id="word1">
-            <label for="word1" class="checkbox-label">Word1</label>
-        </div>
+        <canvas id="time-bar"></canvas>
+        <div id="words-list"></div>
     </div>
 </body>
 </html>
