@@ -64,6 +64,7 @@ function onDataResolution(json) {
         const category = json.categories[i];
         const name = category.name;
         const id = `category-${name.toLowerCase()}`;
+        console.log(category.words);
         categoriesList.append(
             newElement("input", {
                 type: "checkbox", id, 
@@ -73,7 +74,7 @@ function onDataResolution(json) {
                 elem.dataset.index = i;
             }),
             newElement("label", {
-                htmlFor: id, innerText: name
+                htmlFor: id, innerText: `${name} (${category.words.length})`
             }, elem => elem.classList.add("checkbox-label"))
         );
 
