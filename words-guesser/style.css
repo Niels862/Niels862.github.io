@@ -16,7 +16,10 @@ body {
 
     position: absolute;
     top: calc(10vw - 100vh);
-    left: 10vw;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
     width: 80vw;
 
     background-color: lime;
