@@ -29,6 +29,7 @@ class Game {
 
         this.timeBar.start(this.time, () => this.deactivate());
 
+        this.wordsList.innerHTML = "";
         for (let i = 0; i < 5; i++) {
             const word = this.randomWord();
             const id = `word-${i}`;
