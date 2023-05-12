@@ -7,9 +7,6 @@ body {
 #page {
     width: 100vw;
     height: 100vh;
-    display: flex; /* Add this */
-    justify-content: center; /* Add this */
-    align-items: center; /* Add this */
     position: relative;
 }
 
@@ -19,10 +16,12 @@ body {
 
     position: absolute;
     top: calc(10vw - 100vh);
+    left: 0;
+    right: 0;
+    margin: 0 auto;
     width: 80vw;
     overflow: hidden;
     background-color: lime;
-    border: 2px solid blue;
     transition: transform 500ms ease;
 }
 
