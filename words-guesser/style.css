@@ -1,6 +1,13 @@
+:root {
+    --background: #33A1FD;
+    --block-background: #FDCA40;
+    --button-background: #79acfd;
+    --button-background-pressed: #5295ff;
+}
+
 body {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif   ;
-    background-color: red;
+    background-color: var(--background);
     overflow: hidden;
 }
 
@@ -13,9 +20,9 @@ body {
     left: 0;
     right: 0;
     margin: 0 auto;
-    width: 80vw;
+    width: min(80vw, 30rem);
     overflow: hidden;
-    background-color: lime;
+    background-color: var(--block-background);
     transition: transform 500ms ease;
 }
 
@@ -43,7 +50,7 @@ h1 {
 
 button, .word-display {
     all: unset;
-
+    padding: 0.5rem 0;
     border-radius: 0.5rem;
     text-align: center;
     display: block;
@@ -52,7 +59,7 @@ button, .word-display {
     font-size: 1.5rem;
     cursor: pointer;
     word-wrap: break-word;
-    background-color: lightgoldenrodyellow;
+    background-color: var(--button-background);
 }
 
 .word-checkbox {
@@ -60,5 +67,5 @@ button, .word-display {
 }
 
 .word-checkbox:checked + .word-display, button:hover, button:focus {
-    background-color: rebeccapurple;
+    background-color: var(--button-background-pressed);
 }
