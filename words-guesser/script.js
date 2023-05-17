@@ -6,7 +6,9 @@ class Game {
             unused: []
         };
         this.wordsList = document.getElementById("words-list");
-        this.teamsList = document.getElementById("teams-list");
+        this.teamsList = new List(
+            document.getElementById("teams-list"), Team
+        );
         this.teamEditName = document.getElementById("team-edit-name");
         this.teamEditMembers = document.getElementById("team-edit-members");
         this.teams = [];
@@ -16,9 +18,9 @@ class Game {
             document.getElementById("time-bar")
         );
         this.stages = stages;
-        this.teamId = 1;
-        this.addTeam();
-        this.addTeam();
+        this.teamsList.add(2);
+        this.teamsList.setup();
+
         fetch("words.json")
             .then(response => response.json())
             .then(json => {
@@ -55,28 +57,6 @@ class Game {
 
     deactivate() {
         this.stages["prepare"].show();
-    }
-
-    addTeam() {
-        const name = `Team ${this.teamId}`;
-        const elem = document.createElement("div");
-        const divName = document.createElement("div");
-        const buttonRemove = document.createElement("button");
-        const team = new Team(elem, name);
-        this.teams.push(team);
-        divName.innerHTML = name;
-        buttonRemove.innerHTML = "X";
-        buttonRemove.classList.add("button-small");
-        buttonRemove.addEventListener("click", event => {
-            event.stopPropagation();
-        })
-        elem.addEventListener("click", () => {
-            this.teamEditName.innerText = name;
-            this.stages["setup-team-edit"].show();
-        });
-        elem.append(divName, buttonRemove);
-        this.teamsList.append(elem);
-        this.teamId++;
     }
 
     loadWords() {
@@ -133,8 +113,49 @@ class ProgressBar {
     }
 }
 
+// creates a list from user input
+// entry should have properties 'name' and 'id' and methods 'create' and 'delete'
 class List {
-    constructor() {}
+    constructor(container, entryClass) {
+        this.container = container;
+        this.entryClass = entryClass;
+        this.array = [];
+    }
+
+    setup() {
+        this.container.innerHTML = "";
+        this.array.forEach(entry => {
+            this.appendEntry(entry);
+        });        
+    }
+
+    removeEntry(entry) {
+        console.log(entry, "removed");
+    }
+
+    appendEntry(entry) {
+        const elem = document.createElement("div");
+        const name = document.createElement("div");
+        const remove = document.createElement("button");
+        name.innerHTML = entry.name;
+        remove.innerHTML = "X";
+        remove.classList.add("button-small");
+        remove.addEventListener("click", event => {
+            event.stopPropagation();
+            this.removeEntry(entry);
+            event.target.parentElement.remove();
+        });
+        elem.append(name, remove);
+        this.container.append(elem);
+    }
+
+    add(n) {
+        for (let i = 0; i < n; i++) {
+            const entry = new this.entryClass();
+            this.array.push(entry);
+            this.appendEntry(entry);
+        }
+    }
 }
 
 class Stage {
