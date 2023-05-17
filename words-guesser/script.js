@@ -6,13 +6,19 @@ class Game {
             unused: []
         };
         this.wordsList = document.getElementById("words-list");
-        this.setup = false;
+        this.teamsList = document.getElementById("teams-list");
+        this.teamEditName = document.getElementById("team-edit-name");
+        this.teamEditMembers = document.getElementById("team-edit-members");
+        this.teams = [];
+        this.ready = false;
         this.time = 2500;
         this.timeBar = new ProgressBar(
             document.getElementById("time-bar")
         );
         this.stages = stages;
-
+        this.teamId = 1;
+        this.addTeam();
+        this.addTeam();
         fetch("words.json")
             .then(response => response.json())
             .then(json => {
@@ -23,8 +29,9 @@ class Game {
     }
 
     activate() {
-        if (!this.setup) {
+        if (!this.ready) {
             this.loadWords();
+            this.ready = true;
         }
 
         this.timeBar.start(this.time, () => this.deactivate());
@@ -48,6 +55,28 @@ class Game {
 
     deactivate() {
         this.stages["prepare"].show();
+    }
+
+    addTeam() {
+        const name = `Team ${this.teamId}`;
+        const elem = document.createElement("div");
+        const divName = document.createElement("div");
+        const buttonRemove = document.createElement("button");
+        const team = new Team(elem, name);
+        this.teams.push(team);
+        divName.innerHTML = name;
+        buttonRemove.innerHTML = "X";
+        buttonRemove.classList.add("button-small");
+        buttonRemove.addEventListener("click", event => {
+            event.stopPropagation();
+        })
+        elem.addEventListener("click", () => {
+            this.teamEditName.innerText = name;
+            this.stages["setup-team-edit"].show();
+        });
+        elem.append(divName, buttonRemove);
+        this.teamsList.append(elem);
+        this.teamId++;
     }
 
     loadWords() {
@@ -104,6 +133,10 @@ class ProgressBar {
     }
 }
 
+class List {
+    constructor() {}
+}
+
 class Stage {
     constructor(container) {
         this.container = container;
@@ -114,6 +147,13 @@ class Stage {
             elem.classList.remove("shown");
         }
         this.container.classList.add("shown");
+    }
+}
+
+class Team {
+    constructor(element, name) {
+        this.name = "test";
+        this.members = [];
     }
 }
 
@@ -182,4 +222,8 @@ addEventListener("DOMContentLoaded", () => {
         stages["active"].show();
         game.activate();
     });
+
+    document.getElementById("teams-add").addEventListener("click", () => {
+        game.addTeam();
+    })
 });

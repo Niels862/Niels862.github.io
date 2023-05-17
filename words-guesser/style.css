@@ -20,7 +20,9 @@ body {
     left: 0;
     right: 0;
     margin: 0 auto;
+    padding: 0.5rem 0;
     width: min(80vw, 30rem);
+    border-radius: 0.5rem;
     background-color: var(--block-background);
     opacity: 0%;
     transition: transform 500ms ease, opacity 500ms ease;
@@ -32,8 +34,33 @@ body {
     opacity: 100%;
 }
 
-.stage-container * {
+.stage-container > *, .list > * {
+    all: unset;
     grid-column: 1 / span 2;
+    column-gap: 0;
+    padding: 0.5rem 0;
+    border-radius: 0.5rem;
+    text-align: center;
+    display: block;
+    width: calc(100% - 2rem);
+    margin: 0.5rem 1rem;
+    font-size: 1.5rem;
+    word-wrap: break-word;
+    background-color: var(--button-background);
+}
+
+.list > * {
+    background-color: var(--button-background-pressed);
+}
+
+.list > div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.list > div > * {
+    display: inline-block;
+    margin: 0 0.5rem;
 }
 
 .left {
@@ -49,17 +76,16 @@ h1 {
     font-size: 1.5rem;
 }
 
-button, .checkbox-label, canvas {
-    all: unset;
-    padding: 0.5rem 0;
-    border-radius: 0.5rem;
+button, .checkbox-label {
     text-align: center;
-    display: block;
-    width: calc(100% - 2rem);
-    margin: 1rem;
-    font-size: 1.5rem;
     cursor: pointer;
-    word-wrap: break-word;
+}
+
+.button-small {
+    all: unset;
+    width: 1em;
+    font-size: 1.5rem;
+    border-radius: 0.5rem;
     background-color: var(--button-background);
 }
 
@@ -72,7 +98,7 @@ canvas {
     display: none;
 }
 
-.checkbox:checked + .checkbox-label, button:hover, button:focus {
+.checkbox:checked + .checkbox-label, button:hover {
     background-color: var(--button-background-pressed);
 }
 

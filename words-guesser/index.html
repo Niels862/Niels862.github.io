@@ -11,20 +11,34 @@
 <body>
     <div class="stage-container shown" id="index">
         <h1>Word Guesser</h1>
-        <button class="redirector left" data-redirect="options" disabled>Setup</button>
+        <button class="redirector left" data-redirect="setup" disabled>Setup</button>
         <button class="redirector right" data-redirect="prepare" disabled>Quick Start</button>
     </div>
-    <div class="stage-container" id="options">
+    <div class="stage-container" id="setup">
         <h1>Options</h1>
-        <button class="redirector" data-redirect="categories">Choose categories</button>
+        <button class="redirector" data-redirect="setup-categories">Choose categories</button>
+        <button class="redirector" data-redirect="setup-teams">Edit teams</button>
         <button class="redirector" data-redirect="prepare">Start</button>
     </div>
-    <div class="stage-container" id="categories">
+    <div class="stage-container" id="setup-categories">
         <h1>Select categories</h1>
-        <div id="categories-list">
-
+        <div id="categories-list"></div>
+        <button class="redirector" data-redirect="setup">Back</button>
+    </div>
+    <div class="stage-container" id="setup-teams">
+        <div id="teams-list" class="list">
+            <div>
+                <div>Test Team</div>
+                <button class="button-small">X</button>
+            </div>
         </div>
-        <button class="redirector" data-redirect="options">Back</button>
+        <button id="teams-add">+</button>
+        <button class="redirector" data-redirect="setup">Back</button>
+    </div>
+    <div class="stage-container" id="setup-team-edit">
+        <div id="team-edit-name"></div>
+        <input type="text">
+        <button class="redirector" data-redirect="setup-teams">Back</button>
     </div>
     <div class="stage-container" id="prepare">
         <button id="activate">Ready</button>
