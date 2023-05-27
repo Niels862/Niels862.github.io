@@ -19,33 +19,35 @@
         <button class="redirector" data-redirect="setup-categories">Choose categories</button>
         <button class="redirector" data-redirect="setup-teams">Edit teams</button>
         <button class="redirector" data-redirect="prepare">Start</button>
+        <div class="left">Time (s)</div><input id="time-input" class="right" type="number" value="30">
+        <div class="left">Words</div><input id="n-words-input" class="right" type="number" value="5">
     </div>
     <div class="stage-container" id="setup-categories">
         <h1>Select categories</h1>
-        <div id="categories-list"></div>
+        <div id="categories-list" class="list"></div>
         <button class="redirector" data-redirect="setup">Back</button>
     </div>
     <div class="stage-container" id="setup-teams">
-        <div id="teams-list" class="list">
-            <div>
-                <div>Test Team</div>
-                <button class="button-small">X</button>
-            </div>
-        </div>
-        <button id="teams-add">+</button>
+        <div id="teams-list" class="list"></div>
+        <button id="teams-add">Add Team</button>
         <button class="redirector" data-redirect="setup">Back</button>
     </div>
     <div class="stage-container" id="setup-team-edit">
-        <div id="team-edit-name"></div>
-        <input type="text">
+        <input id="team-edit-name" type="text">
+        <div id="members-list" class="list"></div>
+        <button id="members-add">Add Member</button>
         <button class="redirector" data-redirect="setup-teams">Back</button>
     </div>
     <div class="stage-container" id="prepare">
-        <button id="activate">Ready</button>
+        <div>Scores</div>
+        <div id="score-display" class="list"></div>
+        <div id="turn-display"></div>
+        <button id="activate" class="redirector" data-redirect="active">Ready</button>
     </div>
     <div class="stage-container" id="active">
         <canvas id="time-bar"></canvas>
-        <div id="words-list"></div>
+        <div id="words-list" class="list"></div>
+        <button id="done" class="redirector toggleable" data-redirect="prepare">Done</button>
     </div>
 </body>
 </html>
