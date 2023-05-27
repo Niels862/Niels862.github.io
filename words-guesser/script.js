@@ -13,7 +13,6 @@ class Game {
         this.timeBar = new ProgressBar(
             document.getElementById("time-bar"), 0,
             () => {
-                this.teamManager.nextPlayer();
                 this.doneButton.classList.add("shown");
             }
         );
@@ -32,9 +31,10 @@ class Game {
     prepare() {
         for (const elem of this.wordsList.children) {
             if (elem.classList.contains("word-checkbox") && elem.checked) {
-                this.teamManager.prevTeam.score++;
+                this.teamManager.team.score++;
             }
         }
+        this.teamManager.nextPlayer();
         this.teamManager.setPrepare();
     }
 
@@ -239,7 +239,7 @@ class TeamManager {
             this.shownInSetup.name = event.target.value;
             this.teamsList.setup(); // TODO: maybe make better
         });
-        this.turn = 0;
+        this.turn = -1;
     }
 
     get nTeams() {
@@ -294,7 +294,7 @@ class Team {
         this.game = game;
         this.members = [];
         this.membersList = membersList;
-        this.turn = 0;
+        this.turn = -1;
         this.score = 0;
     }
 
