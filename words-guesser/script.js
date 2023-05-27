@@ -50,7 +50,7 @@ class Game {
 
         this.doneButton.classList.remove("shown");
         this.wordsList.innerHTML = "";
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < this.nWords; i++) {
             const word = this.randomWord();
             const id = `word-${i}`;
             this.wordsList.append(
