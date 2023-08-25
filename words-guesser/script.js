@@ -8,17 +8,20 @@ class Game {
         this.wordsList = document.getElementById("words-list");
         this.timeInput = document.getElementById("time-input");
         this.nWordsInput = document.getElementById("n-words-input");
+        this.nRoundsInput = document.getElementById("n-rounds-input");
+        this.buttonActivate = document.getElementById("activate");
+        this.buttonNewGame = document.getElementById("new-game");
+        this.doneButton = document.getElementById("done");
         this.ready = false;
         this.nWords;
         this.timeBar = new ProgressBar(
             document.getElementById("time-bar"), 0,
             () => {
-                this.doneButton.classList.add("shown");
+                this.doneButton.classList.add("button-shown");
             }
         );
         this.stages = stages;
         this.teamManager = new TeamManager(this);
-        this.doneButton = document.getElementById("done");
         fetch("words.json")
             .then(response => response.json())
             .then(json => {
@@ -36,6 +39,13 @@ class Game {
         }
         this.teamManager.nextPlayer();
         this.teamManager.setPrepare();
+        if (this.teamManager.finished) {
+            this.buttonActivate.classList.remove("button-shown");
+            this.buttonNewGame.classList.add("button-shown");
+        } else {
+            this.buttonActivate.classList.add("button-shown");
+            this.buttonNewGame.classList.remove("button-shown");
+        }
     }
 
     activate() {
@@ -43,12 +53,13 @@ class Game {
             this.loadWords();
             this.timeBar.time = 1000 * this.timeInput.value;
             this.nWords = this.nWordsInput.value;
+            this.nRounds = this.nRoundsInput.value;
             this.ready = true;
         }
 
         this.timeBar.start();
 
-        this.doneButton.classList.remove("shown");
+        this.doneButton.classList.remove("button-shown");
         this.wordsList.innerHTML = "";
         for (let i = 0; i < this.nWords; i++) {
             const word = this.randomWord();
@@ -90,7 +101,7 @@ class Game {
 }
 
 class ProgressBar {
-    constructor(canvas, time, onFinish, color="rebeccapurple") {
+    constructor(canvas, time, onFinish, color="rgb(179, 190, 228)") {
         this.canvas = canvas;
         this.ctx = canvas.getContext("2d");
         this.ctx.fillStyle = color;
@@ -204,6 +215,7 @@ class Stage {
         for (const elem of document.getElementsByClassName("shown")) {
             elem.classList.remove("shown");
         }
+        console.log(this.container, this.callback);
         this.container.classList.add("shown");
         if (this.callback) {
             this.callback();
@@ -240,6 +252,7 @@ class TeamManager {
             this.teamsList.setup(); // TODO: maybe make better
         });
         this.turn = -1;
+        this.round = 0;
     }
 
     get nTeams() {
@@ -254,6 +267,10 @@ class TeamManager {
         return this.teamsList.array[(this.turn + this.nTeams - 1) % this.nTeams];
     }
 
+    get finished() {
+        return this.round > this.game.nRounds && this.turn == 0;
+    }
+
     showTeamSetup(team) {
         this.shownInSetup = team;
         team.showSetup();
@@ -263,19 +280,27 @@ class TeamManager {
     nextPlayer() {
         this.turn = (this.turn + 1) % this.teamsList.array.length;
         this.teamsList.array[this.turn].nextPlayer();
+        if (this.turn == 0) {
+            this.round++;
+        }
     }
 
     setPrepare() {
-        const team = this.teamsList.array[this.turn];
-        const member = team?.members[team.turn];
-        let display = "";
-        if (team) {
-            display = team.name;
+        if (this.finished) {
+            this.turnDisplay.style.display = "none";
+        } else {
+            this.turnDisplay.style.display = "block";
+            const team = this.teamsList.array[this.turn];
+            const member = team?.members[team.turn];
+            let display = `Round ${this.round}: `;
+            if (team) {
+                display += team.name;
+            }
+            if (member) {
+                display += `${member.name} (${team.name})`;
+            }
+            this.turnDisplay.innerText = display;
         }
-        if (member) {
-            display = `${member.name} (${team.name})`;
-        }
-        this.turnDisplay.innerText = display;
         this.scoreDisplay.innerHTML = "";
         this.teamsList.array.forEach(team => {
             const elem = document.createElement("div");
@@ -365,11 +390,18 @@ function newElement(type, json, func=elem => {}) {
     return elem;
 }
 
+function newGame(stages) {
+    const game = new Game(stages);
+    console.log("new game");
+
+    stages["index"].callback = () => newGame(stages);
+    stages["prepare"].callback = () => game.prepare();
+    stages["active"].callback = () => game.activate();
+}
+
 addEventListener("DOMContentLoaded", () => {
     const stages = {};
     
-    const game = new Game(stages);
-
     for (const elem of document.getElementsByClassName("stage-container")) {
         stages[elem.id] = new Stage(elem);
     }
@@ -377,9 +409,10 @@ addEventListener("DOMContentLoaded", () => {
     for (const elem of document.getElementsByClassName("redirector")) {
         elem.addEventListener("click", event => {
             stages[event.target.dataset.redirect].show();
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
         });
     }
 
-    stages["prepare"].callback = () => game.prepare();
-    stages["active"].callback = () => game.activate();
+    newGame(stages);
 });

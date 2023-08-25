@@ -1,14 +1,16 @@
 :root {
-    --background: #33A1FD;
-    --block-background: #FDCA40;
-    --button-background: #95beff;
-    --list-background: #68a2ff;
-    --button-background-pressed: #2e7eff;
-    --button-background-disabled: #b9d4ff;
+    --outline: rgb(179, 190, 228);
+    --background: #3A52B0;
+    --block-background: #546CC8;
+    --list-background: #3A52B0;
+    --button-background: #2E4188;
+    --button-background-pressed: #222F62;
+    --button-background-disabled: #101f5e;
 }
 
 body {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif   ;
+    color: var(--outline);
     background-color: var(--background);
 }
 
@@ -79,9 +81,12 @@ body {
     grid-column: 2 / span 1;
 }
 
-h1 {
+.title {
     text-align: center;
     font-size: 1.5rem;
+    background-color: var(--block-background);
+    /* border: 2px solid var(--outline); */
+    font-weight: bold;
 }
 
 button, .checkbox-label {
@@ -120,8 +125,20 @@ button.toggleable {
     padding: 0;
 }
 
-button.toggleable.shown {
+button.toggleable.button-shown {
     transition: max-height 500ms ease, padding 500ms ease;
     padding: 0.5rem 0;
     max-height: 2rem;
+}
+
+#activate {
+    margin-top: -0.5rem;
+}
+
+#new-game {
+    margin-bottom: -0.5rem;
+}
+
+#new-game.button-shown {
+    margin-bottom: 0.5rem;
 }

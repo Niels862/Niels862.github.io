@@ -10,20 +10,21 @@
 </head>
 <body>
     <div class="stage-container shown" id="index">
-        <h1>Word Guesser</h1>
+        <h1 class="title">Word Guesser</h1>
         <button class="redirector left" data-redirect="setup" disabled>Setup</button>
         <button class="redirector right" data-redirect="prepare" disabled>Quick Start</button>
     </div>
     <div class="stage-container" id="setup">
-        <h1>Options</h1>
+        <h1 class="title">Options</h1>
         <button class="redirector" data-redirect="setup-categories">Choose categories</button>
         <button class="redirector" data-redirect="setup-teams">Edit teams</button>
-        <div class="left">Time (s)</div><input id="time-input" class="right" type="number" value="30">
-        <div class="left">Words</div><input id="n-words-input" class="right" type="number" value="5">
+        <div class="left title">Time (s)</div><input id="time-input" class="right" type="number" value="30">
+        <div class="left title">Words</div><input id="n-words-input" class="right" type="number" value="5">
+        <div class="left title">Rounds</div><input id="n-rounds-input" class="right" type="number" value="4">
         <button class="redirector" data-redirect="prepare">Start</button>
     </div>
     <div class="stage-container" id="setup-categories">
-        <h1>Select categories</h1>
+        <h1 class="title">Select categories</h1>
         <div id="categories-list" class="list"></div>
         <button class="redirector" data-redirect="setup">Back</button>
     </div>
@@ -35,14 +36,15 @@
     <div class="stage-container" id="setup-team-edit">
         <input id="team-edit-name" type="text">
         <div id="members-list" class="list"></div>
-        <button id="members-add">Add Member</button>
+        <button id="members-add">Add Player</button>
         <button class="redirector" data-redirect="setup-teams">Back</button>
     </div>
     <div class="stage-container" id="prepare">
         <div>Scores</div>
         <div id="score-display" class="list"></div>
-        <div id="turn-display"></div>
-        <button id="activate" class="redirector" data-redirect="active">Ready</button>
+        <div id="turn-display" class="title"></div>
+        <button id="activate" class="redirector toggleable" data-redirect="active">Ready</button>
+        <button id="new-game" class="redirector toggleable" data-redirect="index">New Game</button>
     </div>
     <div class="stage-container" id="active">
         <canvas id="time-bar"></canvas>
