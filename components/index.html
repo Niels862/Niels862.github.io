@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <td>
+                <canvas width="800" height="600" id="canvas"></canvas>
+            </td>
+            <td>
+                <select id="component-select">
+                    <option value="power-switch">Power Switch</option>
+                    <option value="variable-power">Variable Power</option>
+                    <option value="clock">Clock</option>
+                    <option value="counter">Counter</option>
+                    <option value="memory-cell">Memory Cell</option>
+                    <option value="t-flip-flop">T Flip-Flop</option>
+                    <option value="monostable-multivibrator">Monostable Multivibrator</option>
+                    <option value="delayer">Delayer</option>
+                    <option value="switch">Switch</option>
+                    <option value="led">LED</option>
+                    <option value="seven-segment-display">Seven Segment Display</option>
+                    <option value="splitter">Splitter</option>
+                    <option value="comparator">Comparator</option>
+                    <option value="power-meter">Power Meter</option>
+                    <option value="buffer-gate">Buffer-Gate</option>
+                    <option value="not-gate">NOT-Gate</option>
+                    <option value="and-gate">AND-Gate</option>
+                    <option value="or-gate">OR-Gate</option>
+                    <option value="xor-gate">XOR-Gate</option>
+                    <option value="nand-gate">NAND-Gate</option>
+                    <option value="nor-gate">NOR-Gate</option>
+                    <option value="xnor-gate">XNOR-Gate</option>
+                </select>
+                <button onclick="newComponent()">Insert</button>
+            </td>
+        </tr>
+    </table>
+    <script src="script.js"></script>
+</body>
+</html>

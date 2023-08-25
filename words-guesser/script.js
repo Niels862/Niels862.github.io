@@ -14,6 +14,7 @@ class Game {
         this.doneButton = document.getElementById("done");
         this.ready = false;
         this.nWords;
+        this.time;
         this.timeBar = new ProgressBar(
             document.getElementById("time-bar"), 0,
             () => {
@@ -31,7 +32,23 @@ class Game {
             .catch(error => alert(`Error: ${error}`));
     }
 
+    saveState() {
+        const state = {
+            nWords: this.nWords,
+            time: this.time,
+            nRounds: this.nRounds,
+            teams: this.teamManager.saveState()
+        };
+        return state;
+    }
+
     prepare() {
+        if (this.teamManager.nTeams == 0) {
+            this.buttonNewGame.click();
+            alert("Invalid options: no teams");
+            return;
+        }
+
         for (const elem of this.wordsList.children) {
             if (elem.classList.contains("word-checkbox") && elem.checked) {
                 this.teamManager.team.score++;
@@ -51,10 +68,12 @@ class Game {
     activate() {
         if (!this.ready) {
             this.loadWords();
-            this.timeBar.time = 1000 * this.timeInput.value;
-            this.nWords = this.nWordsInput.value;
-            this.nRounds = this.nRoundsInput.value;
+            this.nWords = parseInt(this.nWordsInput.value);
+            this.time = parseInt(this.timeInput.value);
+            this.nRounds = parseInt(this.nRoundsInput.value);
+            this.timeBar.time = 1000 * this.time;
             this.ready = true;
+            console.log(this.saveState());
         }
 
         this.timeBar.start();
@@ -215,7 +234,6 @@ class Stage {
         for (const elem of document.getElementsByClassName("shown")) {
             elem.classList.remove("shown");
         }
-        console.log(this.container, this.callback);
         this.container.classList.add("shown");
         if (this.callback) {
             this.callback();
@@ -271,6 +289,14 @@ class TeamManager {
         return this.round > this.game.nRounds && this.turn == 0;
     }
 
+    saveState() {
+        const teams = [];
+        this.teamsList.array.forEach(team => {
+            teams.push(team.saveState());
+        });
+        return teams;
+    }
+
     showTeamSetup(team) {
         this.shownInSetup = team;
         team.showSetup();
@@ -321,6 +347,14 @@ class Team {
         this.membersList = membersList;
         this.turn = -1;
         this.score = 0;
+    }
+
+    saveState() {
+        const members = [];
+        this.members.forEach(member => {
+            member.push(member.name);
+        });
+        return members;
     }
 
     showSetup() {
@@ -392,7 +426,6 @@ function newElement(type, json, func=elem => {}) {
 
 function newGame(stages) {
     const game = new Game(stages);
-    console.log("new game");
 
     stages["index"].callback = () => newGame(stages);
     stages["prepare"].callback = () => game.prepare();

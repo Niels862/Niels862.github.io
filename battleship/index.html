@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            background: black;
+            color: lime;
+            font-size: 4rem;
+            font-family: "Courier New", monospace;
+        }
+        td {
+            border: solid lime 2px;
+        }
+        td.no-border {
+            border: none;
+        }
+        #ui-table {
+            margin: auto;
+        }
+        #text-box-table {
+            width: calc(100% - 3rem);
+        }
+        #text-box-left {
+            text-align: left;
+        }
+        #text-box-right {
+            text-align: right;
+        }
+        .wrapper table {
+            margin: 1.5rem;
+        }
+        .cell {
+            width: 5rem;
+            height: 5rem;
+        }
+        .cell:hover {
+            background-color: #004400;
+        }
+        svg {
+            display: none;
+            pointer-events: none;
+        }
+        svg polygon {
+            fill: lime;
+        }
+        svg.dark polygon {
+            fill: #007700;
+        }
+        .cell svg {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <title>Title</title>
+</head>
+<body>
+<svg viewBox="0 0 10 10" id="ship-back">
+    <polygon points="2,2 8,2 9,10 1,10"/>
+</svg>
+<svg viewBox="0 0 10 10" id="ship-middle">
+    <polygon points="1,0 9,0 9,10 1,10"/>
+</svg>
+<svg viewBox="0 0 10 10" id="ship-front">
+    <polygon points="1,0 9,0 8,5 5,8 2,5"/>
+</svg>
+<svg viewBox="0 0 10 10" id="shot-hit">
+    <circle cx="5" cy="5" r="4" fill="lime"/>
+</svg>
+<svg viewBox="0 0 10 10" id="shot-miss">
+    <circle cx="5" cy="5" r="4" stroke="lime" stroke-width="1" fill="black"/>
+</svg>
+<table id="ui-table">
+    <tr>
+        <td class="wrapper">
+            <table id="table-left"></table>
+        </td>
+        <td class="wrapper">
+            <table id="table-right"></table>
+        </td>
+    </tr>
+    <tr>
+        <td class="wrapper" colspan="2">
+            <table id="text-box-table">
+                <tr>
+                    <td class="no-border">
+                        <div id="text-box-left">
+                        </div>
+                    </td>
+                    <td class="no-border">
+                        <div id="text-box-right">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+<script src="script.js"></script>
+</body>
+</html>
