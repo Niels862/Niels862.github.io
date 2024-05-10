@@ -163,11 +163,12 @@ class Structure {
         this.clear();
 
         const c = b / 2;
+        const r = b / 2;
 
         for (let y = 0; y < this.h; y++) {
             for (let x = 0; x < this.w; x++) {
                 for (let z = 0; z < this.d; z++) {
-                    if (Math.hypot(y + 0.5, x - c + 0.5, z - c + 0.5) < b / 2) {
+                    if (Math.hypot((y + 0.5) * (r / this.h), x - c + 0.5, z - c + 0.5) <= r) {
                         this.setBlock(x, y, z);
                     }
                 } 
@@ -298,7 +299,7 @@ class Structure {
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const drawer = new Drawer(canvas, ctx);
-const structure = new Structure().dome(9, 4).hollow();
+const structure = new Structure().dome(40, 40).hollow();
 
 structure.redraw();
 
