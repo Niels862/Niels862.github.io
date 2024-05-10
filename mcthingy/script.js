@@ -20,6 +20,12 @@ class Drawer {
         }
     }
 
+    text(text, x, y) {
+        this.ctx.font = "32px Arial";
+        this.ctx.fillStyle = "black";
+        this.ctx.fillText(text, x, y);
+    }
+
     polygon(points, color) {
         this.ctx.lineWidth = 2;
         this.ctx.fillStyle = color;
@@ -236,6 +242,40 @@ class Structure {
         return this;
     }
 
+    elevate(e) {
+        this.h += e;
+
+        for (let y = 0; y < e; y++) {
+            this.blocks.unshift(Array.from({ length: this.w }, (_, x) => Array.from({ length: this.d }, (_, z) => this.blocks[y][x][z])));
+        }
+
+        return this;
+    }
+
+    arch(h, f = (x) => 0) {
+        const cx = this.w / 2;
+        const cz = this.d / 2;
+
+        for (let x = 0; x < this.w; x++) {
+            const xh = Math.min(this.h, Math.round(h * f((x - cx) / cx)));
+            for (let y = 0; y < xh; y++) {
+                for (let z = 0; z < this.d; z++) {
+                    this.removeBlock(x, y, z);
+                }
+            }
+        }
+
+        for (let z = 0; z < this.d; z++) {
+            const zh = Math.min(this.h, Math.round(h * f((z - cz) / cz)));
+            for (let y = 0; y < zh; y++) {
+                for (let x = 0; x < this.w; x++) {
+                    this.removeBlock(x, y, z);
+                }
+            }
+        }
+        return this;
+    }
+
     inBox(x, y, z) {
         return x >= 0 && x < this.w 
             && y >= 0 && y < this.h 
@@ -270,6 +310,18 @@ class Structure {
         return c;
     }
 
+    countLevel(level) {
+        let c = 0;
+
+        for (let x = 0; x < this.w; x++) {
+            for (let z = 0; z < this.d; z++) {
+                c += this.isBlock(x, level, z);
+            }
+        }
+
+        return c;
+    }
+
     redraw() {
         drawer.clear();
 
@@ -293,13 +345,20 @@ class Structure {
                 this.y - ch / 2, w, h, p
             );
         }
+
+        drawer.text(`${this.step} / ${this.h}`, 20, 40);
+        drawer.text(`${this.countLevel(this.step - 1)} blocks`, 20, 70);
     }
+}
+
+function exp(w, h) {
+    return (x) => -h / w**2 * x**2 + h;
 }
 
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const drawer = new Drawer(canvas, ctx);
-const structure = new Structure().dome(40, 40).hollow();
+const structure = new Structure().squircle(16, 10, 16, 2).elevate(10).arch(10, exp(0.5, 1));
 
 structure.redraw();
 
@@ -362,6 +421,7 @@ in console:
   where a is circleness at start and b is circleness at end
     circleness: 2 = perfect circle, >> 2 is squarelike
 - add .hollow() to make hollow
+- add .hollow(b) to add base (copy of first layer, b times)
 
 switch between orthogonic and top view with p
 move with right mouse click
