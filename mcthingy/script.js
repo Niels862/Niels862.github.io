@@ -157,7 +157,22 @@ class Structure {
     }
 
     dome(b, h) {
-        this.squircle(b, h, 2, 2)
+        this.w = this.d = b;
+        this.h = h;
+
+        this.clear();
+
+        const c = b / 2;
+
+        for (let y = 0; y < this.h; y++) {
+            for (let x = 0; x < this.w; x++) {
+                for (let z = 0; z < this.d; z++) {
+                    if (Math.hypot(y + 0.5, x - c + 0.5, z - c + 0.5) < b / 2) {
+                        this.setBlock(x, y, z);
+                    }
+                } 
+            }
+        }
 
         this.redraw();
 
@@ -191,7 +206,31 @@ class Structure {
     }
 
     hollow() {
-        // upcoming feature!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        for (let y = 0; y < this.h; y++) {
+            const marked = Array.from({ length: this.w }, () => 
+                Array(this.d).fill(false)
+            );
+            for (let x = 0; x < this.w; x++) {
+                for (let z = 0; z < this.d; z++) {
+                    if (this.isBlock(x, y, z)
+                        && this.isBlock(x, y + 1, z) 
+                        && this.isBlock(x - 1, y, z)
+                        && this.isBlock(x, y, z - 1)
+                        && this.isBlock(x + 1, y, z)
+                        && this.isBlock(x, y, z + 1)) {
+                        marked[x][z] = true;
+                    }
+                }
+            }
+            console.log(marked);
+            for (let x = 0; x < this.w; x++) {
+                for (let z = 0; z < this.d; z++) {
+                    if (marked[x][z]) {
+                        this.removeBlock(x, y, z);
+                    }
+                }
+            }
+        }
 
         return this;
     }
@@ -216,6 +255,18 @@ class Structure {
         if (this.inBox(x, y, z)) {
             this.blocks[y][x][z] = false;
         }
+    }
+
+    count() {
+        let c = 0;
+        for (let y = 0; y < this.h; y++) {
+            for (let x = 0; x < this.w; x++) {
+                for (let z = 0; z < this.d; z++) {
+                    c += this.isBlock(x, y, z);
+                }
+            }
+        }
+        return c;
     }
 
     redraw() {
@@ -247,9 +298,9 @@ class Structure {
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const drawer = new Drawer(canvas, ctx);
-const structure = new Structure().squircle(50, 25, 2, 3);
+const structure = new Structure().dome(9, 4).hollow();
 
-structure.redraw(75, 50, 0.3);
+structure.redraw();
 
 window.addEventListener("keydown", event => {
     switch (event.key) {
@@ -309,6 +360,7 @@ in console:
 - structure.squircle(base, height, a, b);
   where a is circleness at start and b is circleness at end
     circleness: 2 = perfect circle, >> 2 is squarelike
+- add .hollow() to make hollow
 
 switch between orthogonic and top view with p
 move with right mouse click
