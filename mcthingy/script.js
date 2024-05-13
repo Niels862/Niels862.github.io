@@ -257,7 +257,7 @@ class Structure {
         const cz = this.d / 2;
 
         for (let x = 0; x < this.w; x++) {
-            const xh = Math.min(this.h, Math.round(h * f((x - cx) / cx)));
+            const xh = Math.min(this.h, Math.round(h * f((x - cx + 0.5) / cx)));
             for (let y = 0; y < xh; y++) {
                 for (let z = 0; z < this.d; z++) {
                     this.removeBlock(x, y, z);
@@ -266,7 +266,7 @@ class Structure {
         }
 
         for (let z = 0; z < this.d; z++) {
-            const zh = Math.min(this.h, Math.round(h * f((z - cz) / cz)));
+            const zh = Math.min(this.h, Math.round(h * f((z - cz + 0.5) / cz)));
             for (let y = 0; y < zh; y++) {
                 for (let x = 0; x < this.w; x++) {
                     this.removeBlock(x, y, z);
